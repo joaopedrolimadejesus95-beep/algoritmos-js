@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos em JavaScript</title>
+    <meta name="description" content="Exercícios de lógica em JavaScript para testar no navegador: cifra de César, strings, arrays e matrizes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="interface/style.css">
+</head>
+<body>
+    <header class="topo">
+        <p class="sobretitulo">// laboratório de lógica</p>
+        <h1>Algoritmos em JavaScript</h1>
+        <p class="subtitulo">
+            Cada resultado nesta página vem das funções da pasta <code>src/</code>, as mesmas que os testes verificam.
+            Mexa nos campos e veja a lógica funcionando.
+        </p>
+    </header>
+
+    <nav class="abas" role="tablist" aria-label="Categorias">
+        <button class="aba ativa" role="tab" aria-selected="true" aria-controls="painel-cifra" id="aba-cifra">Cifra de César</button>
+        <button class="aba" role="tab" aria-selected="false" aria-controls="painel-strings" id="aba-strings">Strings</button>
+        <button class="aba" role="tab" aria-selected="false" aria-controls="painel-arrays" id="aba-arrays">Arrays</button>
+        <button class="aba" role="tab" aria-selected="false" aria-controls="painel-matrizes" id="aba-matrizes">Matrizes</button>
+    </nav>
+
+    <main>
+        <!-- CIFRA DE CÉSAR -->
+        <section class="painel" id="painel-cifra" role="tabpanel" aria-labelledby="aba-cifra">
+            <div class="cartao">
+                <div class="linha-modo">
+                    <div class="alternador" role="group" aria-label="Modo">
+                        <button class="modo ativo" data-modo="criptografar">Criptografar</button>
+                        <button class="modo" data-modo="descriptografar">Descriptografar</button>
+                    </div>
+                    <label class="campo-chave">
+                        Chave
+                        <select id="cifra-chave"></select>
+                    </label>
+                </div>
+
+                <label class="rotulo" for="cifra-entrada">Texto</label>
+                <textarea id="cifra-entrada" rows="3" spellcheck="false">Ola, bom dia! Meu nome e Joao.</textarea>
+
+                <p class="rotulo">Resultado <span class="funcao" id="cifra-funcao">criptografar(texto, "F")</span></p>
+                <div class="saida destaque" id="cifra-saida" aria-live="polite"></div>
+            </div>
+
+            <div class="cartao">
+                <p class="rotulo">Como a chave desloca o alfabeto</p>
+                <div class="mapa" id="cifra-mapa" aria-hidden="true">
+                    <div class="mapa-linha" id="mapa-original"></div>
+                    <div class="mapa-linha deslocada" id="mapa-deslocado"></div>
+                </div>
+                <p class="nota">
+                    A chave <strong id="nota-chave">F</strong> está na posição <strong id="nota-posicao">5</strong>,
+                    então cada letra anda <span id="nota-passos">5 casas pra frente</span>. Quando passa do Z, o <code>% 26</code> faz voltar pro A.
+                </p>
+            </div>
+        </section>
+
+        <!-- STRINGS -->
+        <section class="painel" id="painel-strings" role="tabpanel" aria-labelledby="aba-strings" hidden>
+            <div class="cartao">
+                <label class="rotulo" for="strings-entrada">Frase</label>
+                <input id="strings-entrada" type="text" value="Socorram me subi no onibus em Marrocos" spellcheck="false">
+            </div>
+
+            <div class="grade">
+                <div class="cartao resultado">
+                    <span class="funcao">palindromo()</span>
+                    <div class="valor" id="res-palindromo"></div>
+                </div>
+                <div class="cartao resultado">
+                    <span class="funcao">contarCaracteres()</span>
+                    <div class="valor" id="res-caracteres"></div>
+                    <span class="detalhe">sem contar espaços</span>
+                </div>
+                <div class="cartao resultado">
+                    <span class="funcao">contarVogaisConsoantes()</span>
+                    <div class="valor" id="res-vogais"></div>
+                </div>
+            </div>
+
+            <div class="cartao">
+                <p class="rotulo"><span class="funcao">substituirCaracter()</span></p>
+                <div class="linha-troca">
+                    <label>Trocar <input id="troca-antigo" type="text" maxlength="1" value="o"></label>
+                    <label>por <input id="troca-novo" type="text" maxlength="1" value="0"></label>
+                </div>
+                <div class="saida" id="res-substituir" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <!-- ARRAYS -->
+        <section class="painel" id="painel-arrays" role="tabpanel" aria-labelledby="aba-arrays" hidden>
+            <div class="cartao">
+                <label class="rotulo" for="arrays-entrada">Números separados por vírgula</label>
+                <input id="arrays-entrada" type="text" value="3, -1, 0, 7, -5, 2, 8" spellcheck="false">
+                <p class="erro" id="arrays-erro" hidden></p>
+                <div class="fichas" id="arrays-fichas" aria-hidden="true"></div>
+            </div>
+
+            <div class="grade">
+                <div class="cartao resultado"><span class="funcao">somarArray()</span><div class="valor" id="res-soma"></div></div>
+                <div class="cartao resultado"><span class="funcao">media()</span><div class="valor" id="res-media"></div></div>
+                <div class="cartao resultado"><span class="funcao">maiorElemento()</span><div class="valor" id="res-maior"></div></div>
+                <div class="cartao resultado"><span class="funcao">contarPares()</span><div class="valor" id="res-pares"></div></div>
+                <div class="cartao resultado"><span class="funcao">contarPositivosNegativos()</span><div class="valor" id="res-sinais"></div><span class="detalhe">o zero conta como positivo</span></div>
+                <div class="cartao resultado">
+                    <span class="funcao">multiplicar(array, <input id="multiplicador" type="number" value="2" aria-label="Multiplicador">)</span>
+                    <div class="valor pequeno" id="res-multiplicar"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATRIZES -->
+        <section class="painel" id="painel-matrizes" role="tabpanel" aria-labelledby="aba-matrizes" hidden>
+            <div class="duas-colunas">
+                <div class="cartao">
+                    <label class="rotulo" for="matriz-entrada">Matriz (uma linha por linha, números separados por espaço)</label>
+                    <textarea id="matriz-entrada" rows="4" spellcheck="false">1 2 3
+4 5 6
+7 8 9</textarea>
+                    <label class="rotulo" for="matriz-busca">Buscar número</label>
+                    <input id="matriz-busca" type="number" value="6">
+                    <p class="erro" id="matriz-erro" hidden></p>
+                </div>
+
+                <div class="cartao">
+                    <p class="rotulo">Visualização</p>
+                    <div class="matriz" id="matriz-visual" aria-hidden="true"></div>
+                    <p class="legenda">
+                        <span class="marca diagonal"></span> diagonal principal
+                        <span class="marca achado"></span> número encontrado
+                    </p>
+                </div>
+            </div>
+
+            <div class="grade">
+                <div class="cartao resultado"><span class="funcao">somarElementosMatriz()</span><div class="valor" id="res-matriz-soma"></div></div>
+                <div class="cartao resultado"><span class="funcao">buscarNumeroNaMatriz()</span><div class="valor pequeno" id="res-matriz-busca"></div></div>
+                <div class="cartao resultado"><span class="funcao">diagonalPrincipal()</span><div class="valor pequeno" id="res-matriz-diagonal"></div></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        Feito por João Pedro Lima de Jesus ·
+        <a href="https://github.com/joaopedrolimadejesus95-beep/algoritmos-js">código no GitHub</a>
+    </footer>
+
+    <script type="module" src="interface/app.js"></script>
+</body>
+</html>
