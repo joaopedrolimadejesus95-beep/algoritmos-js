@@ -1,0 +1,11 @@
+{
+  "name": "algoritmos-js",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Exercícios de lógica de programação em JavaScript: cifra de César, strings, arrays e matrizes",
+  "scripts": {
+    "test": "node --test"
+  },
+  "author": "João Pedro Lima de Jesus",
+  "license": "MIT"
+}
